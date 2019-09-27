@@ -1,4 +1,4 @@
-name := "spark_project_kickstarter_2019-2020"
+name := "spark_project_kickstarter_2019_2020"
 
 version := "1.0"
 
@@ -16,21 +16,20 @@ libraryDependencies ++= Seq(
 
   // Third-party libraries
   "org.apache.hadoop" % "hadoop-aws" % "2.6.0" % "provided",
-  "com.amazonaws" % "aws-java-sdk" % "1.7.4" % "provided",
-  "org.scala-lang" % "scala-reflect" % "2.11" % "provided" // To run Spark in IntelliJ
+  "com.amazonaws" % "aws-java-sdk" % "1.7.4" % "provided"
   //"com.github.scopt" %% "scopt" % "3.4.0"        // to parse options given to the jar in the spark-submit
 )
 
 // A special option to exclude Scala itself form our assembly JAR, since Spark already bundles Scala.
-assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
+assembly / assemblyOption := (assembly / assemblyOption).value.copy(includeScala = false)
 
 // Disable parallel execution because of spark-testing-base
-parallelExecution in Test := false
+Test / parallelExecution := false
 
 // Configure the build to publish the assembly JAR
-artifact in (Compile, assembly) := {
-  val art = (artifact in (Compile, assembly)).value
-  art.copy(`classifier` = Some("assembly"))
+(Compile / assembly / artifact) := {
+  val art = (Compile / assembly / artifact).value
+  art.withClassifier(Some("assembly"))
 }
 
-addArtifact(artifact in (Compile, assembly), assembly)
+addArtifact(Compile / assembly / artifact, assembly)
