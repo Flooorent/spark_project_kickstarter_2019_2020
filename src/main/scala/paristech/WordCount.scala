@@ -30,7 +30,7 @@ object WordCount {
     val spark = SparkSession
       .builder
       .config(conf)
-      .appName("TP spark: Word Count")
+      .appName("TP Spark : Word Count")
       .getOrCreate()
 
     // on récupère le SparkContext à partir du SparkSession
