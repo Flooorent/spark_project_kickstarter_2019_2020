@@ -23,7 +23,7 @@ object Trainer {
     val spark = SparkSession
       .builder
       .config(conf)
-      .appName("TP_spark")
+      .appName("TP Spark : Trainer")
       .getOrCreate()
 
 
